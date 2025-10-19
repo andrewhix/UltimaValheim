@@ -1,0 +1,10 @@
+﻿{
+  ""name"": ""Ultima Valheim Module Template"",
+  ""version_number"": ""0.1.0"",
+  ""website_url"": ""https://github.com/UltimaValheim"",
+  ""description"": ""Template for creating new Ultima Valheim modules."",
+  ""dependencies"": [
+    ""BepInEx-BepInExPack_Valheim"",
+    ""com.valheim.ultima.core""
+  ]
+}

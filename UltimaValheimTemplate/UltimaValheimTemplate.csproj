@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <OutputPath>..\Builds\$(ProjectName)\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="C:\Valheim Modding\Code\UltimaValheim\UltimaValheimCore\UltimaValheimCore\UltimaValheimCore.csproj" />
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="Build">
+    <Copy 
+      SourceFiles="$(TargetPath)"
+      DestinationFolder="C:\Valheim Modding\Code\UltimaValheim\Builds\$(ProjectName)"
+      SkipUnchangedFiles="true" />
+  </Target>
+</Project>

@@ -1,0 +1,59 @@
+<Project>
+	<PropertyGroup>
+		<!-- Shared configuration -->
+		<TargetFramework>net48</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+
+		<!-- Define Valheim install path once -->
+		<VALHEIM_INSTALL>C:\Program Files (x86)\Steam\steamapps\common\Valheim</VALHEIM_INSTALL>
+
+		<!-- Shared output folder for all modules -->
+		<OutputPath>$(MSBuildThisFileDirectory)\Builds\</OutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- BepInEx Core -->
+		<Reference Include="BepInEx">
+			<HintPath>$(VALHEIM_INSTALL)\BepInEx\core\BepInEx.dll</HintPath>
+		</Reference>
+
+		<!-- Jotunn Modding Library -->
+		<Reference Include="Jotunn">
+			<HintPath>$(VALHEIM_INSTALL)\BepInEx\plugins\Jotunn.dll</HintPath>
+		</Reference>
+
+		<!-- Valheim assemblies -->
+		<Reference Include="assembly_valheim">
+			<HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\assembly_valheim.dll</HintPath>
+		</Reference>
+		<Reference Include="0Harmony">
+			<HintPath>C:\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\core\0Harmony.dll</HintPath>
+		</Reference>
+		<Reference Include="assembly_utils">
+			<HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\assembly_utils.dll</HintPath>
+		</Reference>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\Assembly-CSharp.dll</HintPath>
+		</Reference>
+
+		<!-- Unity Assemblies -->
+		<Reference Include="UnityEngine">
+			<HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.CoreModule">
+			<HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.PhysicsModule">
+			<HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+		</Reference>
+		<Reference Include="UnityEngine.UI">
+			<HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\UnityEngine.UI.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- Shared NuGet packages -->
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+</Project>

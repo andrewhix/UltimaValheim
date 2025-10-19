@@ -1,0 +1,185 @@
+{
+  "version": 3,
+  "targets": {
+    ".NETFramework,Version=v4.8": {
+      "JotunnLib/2.26.1": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "System",
+          "System.Core",
+          "System.Data",
+          "System.Data.DataSetExtensions",
+          "System.Xml",
+          "System.Xml.Linq"
+        ],
+        "compile": {
+          "lib/net462/Jotunn.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net462/Jotunn.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "build": {
+          "build/_._": {}
+        }
+      },
+      "Newtonsoft.Json/13.0.3": {
+        "type": "package",
+        "compile": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net45/Newtonsoft.Json.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "UltimaValheimCore/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.8",
+        "dependencies": {
+          "JotunnLib": "2.26.1",
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "compile": {
+          "bin/placeholder/UltimaValheimCore.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/UltimaValheimCore.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "JotunnLib/2.26.1": {
+      "sha512": "1kv+uNOgveuiWUS2Fq66Fctebdd4ssAYhzc1O+3CU9oOpC86o7H+RzYuikw/TrbrRZd3fTkj9gv70YMQByTY5w==",
+      "type": "package",
+      "path": "jotunnlib/2.26.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/JotunnBuildTask.dll",
+        "build/JotunnLib.props",
+        "build/JotunnLibRefsCorlib.props",
+        "build/Mono.Cecil.dll",
+        "build/Paths.props",
+        "images/JVL_Logo_128x128.png",
+        "jotunnlib.2.26.1.nupkg.sha512",
+        "jotunnlib.nuspec",
+        "lib/net462/Jotunn.dll",
+        "lib/net462/Jotunn.pdb",
+        "lib/net462/Jotunn.xml"
+      ]
+    },
+    "Newtonsoft.Json/13.0.3": {
+      "sha512": "HrC5BXdl00IP9zeV+0Z848QWPAoCr9P3bDEZguI+gkLcBKAOxix/tLEAAHC+UvDNPv4a2d18lOReHMOagPa+zQ==",
+      "type": "package",
+      "path": "newtonsoft.json/13.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.md",
+        "README.md",
+        "lib/net20/Newtonsoft.Json.dll",
+        "lib/net20/Newtonsoft.Json.xml",
+        "lib/net35/Newtonsoft.Json.dll",
+        "lib/net35/Newtonsoft.Json.xml",
+        "lib/net40/Newtonsoft.Json.dll",
+        "lib/net40/Newtonsoft.Json.xml",
+        "lib/net45/Newtonsoft.Json.dll",
+        "lib/net45/Newtonsoft.Json.xml",
+        "lib/net6.0/Newtonsoft.Json.dll",
+        "lib/net6.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.0/Newtonsoft.Json.dll",
+        "lib/netstandard1.0/Newtonsoft.Json.xml",
+        "lib/netstandard1.3/Newtonsoft.Json.dll",
+        "lib/netstandard1.3/Newtonsoft.Json.xml",
+        "lib/netstandard2.0/Newtonsoft.Json.dll",
+        "lib/netstandard2.0/Newtonsoft.Json.xml",
+        "newtonsoft.json.13.0.3.nupkg.sha512",
+        "newtonsoft.json.nuspec",
+        "packageIcon.png"
+      ]
+    },
+    "UltimaValheimCore/1.0.0": {
+      "type": "project",
+      "path": "../UltimaValheimCore/UltimaValheimCore/UltimaValheimCore.csproj",
+      "msbuildProject": "../UltimaValheimCore/UltimaValheimCore/UltimaValheimCore.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    ".NETFramework,Version=v4.8": [
+      "Newtonsoft.Json >= 13.0.3",
+      "UltimaValheimCore >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Gaming\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimSkills\\UltimaValheimSkills.csproj",
+      "projectName": "UltimaValheimSkills",
+      "projectPath": "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimSkills\\UltimaValheimSkills.csproj",
+      "packagesPath": "C:\\Users\\Gaming\\.nuget\\packages\\",
+      "outputPath": "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimSkills\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Gaming\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net48"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net48": {
+          "targetAlias": "net48",
+          "projectReferences": {
+            "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimCore\\UltimaValheimCore\\UltimaValheimCore.csproj": {
+              "projectPath": "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimCore\\UltimaValheimCore\\UltimaValheimCore.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net48": {
+        "targetAlias": "net48",
+        "dependencies": {
+          "Newtonsoft.Json": {
+            "target": "Package",
+            "version": "[13.0.3, )"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\RuntimeIdentifierGraph.json"
+      }
+    }
+  }
+}

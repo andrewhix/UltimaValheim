@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>UltimaValheim.Skills</RootNamespace>
+    <AssemblyName>UltimaValheimSkills</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UltimaValheimCore\UltimaValheimCore\UltimaValheimCore.csproj" />
+  </ItemGroup>
+</Project>

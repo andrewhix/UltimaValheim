@@ -1,0 +1,30 @@
+﻿<Project>
+  <PropertyGroup>
+    <!-- Valheim install path -->
+    <ValheimInstall>C:\Program Files (x86)\Steam\steamapps\common\Valheim</ValheimInstall>
+
+    <!-- Where to deploy DLLs -->
+    <DeployDir>$(ValheimInstall)\BepInEx\plugins\UltimaValheim</DeployDir>
+
+    <!-- Local shared output -->
+    <BuildOutput>$(MSBuildThisFileDirectory)\Builds</BuildOutput>
+  </PropertyGroup>
+
+  <!-- Ensure target directory exists -->
+  <Target Name="EnsureDeployDir" BeforeTargets="Build">
+    <MakeDir Directories="$(DeployDir)" Condition="!Exists('$(DeployDir)')" />
+  </Target>
+
+  <!-- Copy DLLs to Valheim -->
+  <Target Name="DeployToValheim" AfterTargets="Build">
+    <ItemGroup>
+      <BuiltDlls Include="$(BuildOutput)\*.dll" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(BuiltDlls)"
+      DestinationFolder="$(DeployDir)"
+      SkipUnchangedFiles="true"
+    />
+    <Message Text="Deployed @(BuiltDlls) → $(DeployDir)" Importance="High" />
+  </Target>
+</Project>
