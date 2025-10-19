@@ -1,3 +1,4 @@
 C:\Valheim Modding\Code\UltimaValheim\UltimaValheimSkills\obj\Debug\net48\UltimaValheimSkills.csproj.AssemblyReference.cache
 C:\Valheim Modding\Code\UltimaValheim\UltimaValheimSkills\obj\Debug\net48\UltimaValheimSkills.GeneratedMSBuildEditorConfig.editorconfig
 C:\Valheim Modding\Code\UltimaValheim\UltimaValheimSkills\obj\Debug\net48\UltimaValheimSkills.csproj.CoreCompileInputs.cache
+C:\Valheim Modding\Code\UltimaValheim\UltimaValheimSkills\obj\Debug\net48\UltimaValheimSkills.sourcelink.json

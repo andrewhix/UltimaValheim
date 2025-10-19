@@ -36,6 +36,9 @@
 		<Reference Include="Assembly-CSharp">
 			<HintPath>$(VALHEIM_INSTALL)\valheim_Data\Managed\Assembly-CSharp.dll</HintPath>
 		</Reference>
+		<Reference Include="UnityEngine">
+			<HintPath>$(VALHEIM_PATH)\valheim_Data\Managed\UnityEngine.dll</HintPath>
+		</Reference>
 
 		<!-- Unity Assemblies -->
 		<Reference Include="UnityEngine">
@@ -54,6 +57,16 @@
 
 	<ItemGroup>
 		<!-- Shared NuGet packages -->
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<!--<PackageReference Include="Newtonsoft.Json" Version="13.0.3" /> -->
+
+			<PackageReference Include="System.Text.Json" Version="8.0.4" />
+
+
+
+		<!-- Optional: ValheimLib or Jotunn -->
+		<Reference Include="ValheimLib">
+			<HintPath>$(VALHEIM_PATH)\BepInEx\plugins\ValheimLib.dll</HintPath>
+			<Private>false</Private>
+		</Reference>
 	</ItemGroup>
 </Project>

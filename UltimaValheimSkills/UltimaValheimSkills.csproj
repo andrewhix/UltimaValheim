@@ -5,7 +5,8 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\UltimaValheimCore\UltimaValheimCore\UltimaValheimCore.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\UltimaValheimCore\UltimaValheimCore\UltimaValheimCore.csproj" />
+	</ItemGroup>
+
 </Project>

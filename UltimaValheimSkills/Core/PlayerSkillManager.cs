@@ -1,98 +1,74 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using UltimaValheim.Core;
 
 namespace UltimaValheim.Skills
 {
     public static class PlayerSkillManager
     {
-        // Tracks all loaded players and their skill data
-        private static readonly Dictionary<long, PlayerSkillData> _playerData = new();
-
         public static void Initialize()
         {
             CoreAPI.Log.LogInfo("[UVC Skills] PlayerSkillManager initialized.");
         }
 
-        public static void Shutdown()
+        public static void LoadPlayer(long playerID)
         {
-            CoreAPI.Log.LogInfo("[UVC Skills] Saving all player skill data before shutdown...");
-            foreach (var kvp in _playerData)
+            try
             {
-                PlayerSkillPersistence.Save(kvp.Value);
+                if (Type.GetType("ServerCharacters.ServerCharacters, ServerCharacters") != null)
+                {
+                    CoreAPI.Log.LogInfo($"[UVC Skills] ServerCharacters active - skipping local skill load for {playerID}");
+                    return;
+                }
+
+                var data = PlayerSkillPersistence.Load(playerID);
+                if (data != null)
+                {
+                    ApplySkillData(playerID, data);
+                    CoreAPI.Log.LogInfo($"[UVC Skills] Skills loaded for player {playerID}");
+                }
+                else
+                {
+                    CoreAPI.Log.LogInfo($"[UVC Skills] No local skill data found for player {playerID}");
+                }
             }
-            _playerData.Clear();
-        }
-
-        public static void RegisterLoadedData(PlayerSkillData data)
-        {
-            if (data == null) return;
-            _playerData[data.PlayerID] = data;
-            CoreAPI.Log.LogInfo($"[UVC Skills] Registered skill data for player ID {data.PlayerID}");
-        }
-
-        public static PlayerSkillData GetData(long playerID)
-        {
-            if (_playerData.TryGetValue(playerID, out var data))
-                return data;
-
-            CoreAPI.Log.LogWarning($"[UVC Skills] No skill data found for player ID {playerID}. Creating new data.");
-            var newData = new PlayerSkillData(playerID);
-            _playerData[playerID] = newData;
-            return newData;
-        }
-
-        // 🔹 XP Management API
-        public static void GrantXP(long playerID, string skillName, float amount)
-        {
-            if (!_playerData.TryGetValue(playerID, out var data))
+            catch (Exception ex)
             {
-                data = new PlayerSkillData(playerID);
-                _playerData[playerID] = data;
-            }
-
-            var beforeLevel = data.GetLevel(skillName);
-            data.AddXP(skillName, amount);
-            var afterLevel = data.GetLevel(skillName);
-
-            CoreAPI.Log.LogInfo($"[UVC Skills] Player {playerID} gained {amount:F1} XP in {skillName} (Lv {beforeLevel} → {afterLevel}).");
-
-            // Optional: save immediately or defer for batch saving later
-            PlayerSkillPersistence.Save(data);
-        }
-
-        public static void OnPlayerJoin(ZNetPeer peer)
-        {
-            if (peer == null) return;
-
-            long playerID = peer.m_uid;
-            CoreAPI.Log.LogInfo($"[UVC Skills] Player {peer.m_playerName} ({playerID}) joined — loading skills.");
-
-            var data = PlayerSkillPersistence.Load(playerID);
-            if (data != null)
-            {
-                RegisterLoadedData(data);
-            }
-            else
-            {
-                CoreAPI.Log.LogInfo($"[UVC Skills] No existing skill data for {peer.m_playerName}. Creating new profile.");
-                RegisterLoadedData(new PlayerSkillData(playerID));
+                CoreAPI.Log.LogError($"[UVC Skills] LoadPlayer error for {playerID}: {ex}");
             }
         }
 
-        public static void OnPlayerLeave(ZNetPeer peer)
+        public static void SavePlayer(long playerID)
         {
-            if (peer == null) return;
-
-            long playerID = peer.m_uid;
-            CoreAPI.Log.LogInfo($"[UVC Skills] Player {peer.m_playerName} ({playerID}) left — saving skills.");
-
-            if (_playerData.TryGetValue(playerID, out var data))
+            try
             {
-                PlayerSkillPersistence.Save(data);
-                _playerData.Remove(playerID);
+                if (Type.GetType("ServerCharacters.ServerCharacters, ServerCharacters") != null)
+                {
+                    CoreAPI.Log.LogInfo($"[UVC Skills] ServerCharacters active - skipping local skill save for {playerID}");
+                    return;
+                }
+
+                var data = CollectSkillData(playerID);
+                if (data != null)
+                {
+                    PlayerSkillPersistence.Save(data);
+                    CoreAPI.Log.LogInfo($"[UVC Skills] Skills saved for player {playerID}");
+                }
+            }
+            catch (Exception ex)
+            {
+                CoreAPI.Log.LogError($"[UVC Skills] SavePlayer error for {playerID}: {ex}");
             }
         }
 
-        public static IReadOnlyDictionary<long, PlayerSkillData> All => _playerData;
+        private static PlayerSkillData CollectSkillData(long playerID)
+        {
+            // Placeholder for collecting player skill data.
+            return new PlayerSkillData(playerID);
+        }
+
+        private static void ApplySkillData(long playerID, PlayerSkillData data)
+        {
+            // Placeholder for applying player skill data.
+        }
     }
 }

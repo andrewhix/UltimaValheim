@@ -1,54 +1,73 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Text.Json;
+using BepInEx;
 using UltimaValheim.Core;
-using Newtonsoft.Json;
 
 namespace UltimaValheim.Skills
 {
     public static class PlayerSkillPersistence
     {
-        private static string SaveDir => Path.Combine(CoreAPI.Persistence.SavePath, "Skills");
+        private static readonly string SaveDir = Path.Combine(Paths.ConfigPath, "UltimaValheim", "Skills");
+
+        public static void Save(PlayerSkillData data)
+        {
+            if (data == null) return;
+
+            try
+            {
+                Directory.CreateDirectory(SaveDir);
+                string path = Path.Combine(SaveDir, $"{data.PlayerID}.json");
+
+                string json = JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
+                File.WriteAllText(path, json);
+            }
+            catch (Exception ex)
+            {
+                CoreAPI.Log.LogWarning($"[UVC Skills] Failed to save skill data: {ex}");
+            }
+        }
 
         public static PlayerSkillData Load(long playerID)
         {
             try
             {
-                if (!Directory.Exists(SaveDir))
-                    Directory.CreateDirectory(SaveDir);
-
                 string path = Path.Combine(SaveDir, $"{playerID}.json");
-                if (!File.Exists(path))
-                {
-                    CoreAPI.Log.LogInfo($"[UVC Skills] No save found for player {playerID}, creating new profile.");
-                    return null;
-                }
+                if (!File.Exists(path)) return null;
 
                 string json = File.ReadAllText(path);
-                var data = JsonConvert.DeserializeObject<PlayerSkillData>(json);
-                CoreAPI.Log.LogInfo($"[UVC Skills] Loaded skill data for player {playerID}");
-                return data;
+                return JsonSerializer.Deserialize<PlayerSkillData>(json);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                CoreAPI.Log.LogError($"[UVC Skills] Failed to load player skill data: {ex.Message}");
+                CoreAPI.Log.LogWarning($"[UVC Skills] Failed to load skill data: {ex}");
                 return null;
             }
         }
 
-        public static void Save(PlayerSkillData data)
+        public static string Serialize(PlayerSkillData data)
         {
             try
             {
-                if (!Directory.Exists(SaveDir))
-                    Directory.CreateDirectory(SaveDir);
-
-                string path = Path.Combine(SaveDir, $"{data.PlayerID}.json");
-                string json = JsonConvert.SerializeObject(data, Newtonsoft.Json.Formatting.Indented);
-                File.WriteAllText(path, json);
-                CoreAPI.Log.LogInfo($"[UVC Skills] Saved skill data for player {data.PlayerID}");
+                return JsonSerializer.Serialize(data, new JsonSerializerOptions { WriteIndented = true });
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                CoreAPI.Log.LogError($"[UVC Skills] Failed to save player skill data: {ex.Message}");
+                CoreAPI.Log.LogWarning($"[UVC Skills] Serialize failed: {ex}");
+                return "{}";
+            }
+        }
+
+        public static PlayerSkillData Deserialize(string json)
+        {
+            try
+            {
+                return string.IsNullOrEmpty(json) ? null : JsonSerializer.Deserialize<PlayerSkillData>(json);
+            }
+            catch (Exception ex)
+            {
+                CoreAPI.Log.LogWarning($"[UVC Skills] Deserialize failed: {ex}");
+                return null;
             }
         }
     }

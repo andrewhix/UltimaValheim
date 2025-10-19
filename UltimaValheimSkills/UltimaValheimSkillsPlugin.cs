@@ -1,50 +1,38 @@
 ﻿using BepInEx;
 using BepInEx.Logging;
-using HarmonyLib;
 using UltimaValheim.Core;
+using UltimaValheim.Skills;
 
 namespace UltimaValheim.Skills
 {
-    [BepInPlugin(PluginGUID, PluginName, PluginVersion)]
-    [BepInDependency("com.valheim.ultima.core")]
+    [BepInPlugin(ModGUID, ModName, ModVersion)]
+    [BepInDependency("com.valheim.ultima.core", BepInDependency.DependencyFlags.HardDependency)]
     public class UltimaValheimSkillsPlugin : BaseUnityPlugin, ICoreModule
     {
-        public const string PluginGUID = "com.valheim.ultima.skills";
-        public const string PluginName = "Ultima Valheim Skills";
-        public const string PluginVersion = "0.2.0";
+        public const string ModGUID = "com.valheim.ultima.skills";
+        public const string ModName = "Ultima Valheim Skills";
+        public const string ModVersion = "1.0.0";
 
         internal static ManualLogSource Log;
-        private Harmony _harmony;
 
         private void Awake()
         {
             Log = Logger;
-            _harmony = new Harmony(PluginGUID);
-            _harmony.PatchAll();
+            Log.LogInfo("[UVC Skills] Initializing...");
 
+            // Register this module with Core
             CoreAPI.RegisterModule(this);
-            Log.LogInfo("[UVC Skills] Loaded successfully and Harmony patches applied.");
-        }
 
-        public void OnCoreReady()
-        {
+            // Initialize the Skills system (ServerCharacters optional)
             PlayerSkillManager.Initialize();
 
-            // Register default skill definitions directly
-            SkillRegistry.RegisterSkill(new SkillDef("Mining", "Improves ore yield and mining speed.", 100f, 1.2f));
-            SkillRegistry.RegisterSkill(new SkillDef("Woodcutting", "Increases chopping efficiency.", 100f, 1.2f));
-            SkillRegistry.RegisterSkill(new SkillDef("Running", "Improves movement stamina efficiency.", 100f, 1.2f));
-            SkillRegistry.RegisterSkill(new SkillDef("Blocking", "Increases block effectiveness.", 100f, 1.2f));
-
-
-            Log.LogInfo("[UVC Skills] Core ready — default skills registered.");
+            Log.LogInfo("[UVC Skills] Initialization complete.");
         }
 
-        public void OnCoreShutdown()
+        // ICoreModule
+        public void OnCoreReady()
         {
-            PlayerSkillManager.Shutdown();
-            _harmony?.UnpatchSelf();
-            Log.LogInfo("[UVC Skills] Core shutting down — skills saved and patches removed.");
+            Log.LogInfo("[UVC Skills] Core is ready. Skills module synchronized.");
         }
     }
 }

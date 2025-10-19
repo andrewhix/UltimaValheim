@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimaValheimCore", "..\UltimaValheimCore\UltimaValheimCore\UltimaValheimCore.csproj", "{CCA2C80B-BC8F-0DB0-39D4-2D31CD2F98DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UltimaValheimSkills", "..\UltimaValheimSkills\UltimaValheimSkills.csproj", "{795F2388-655E-4515-AB1F-96E520BCDE85}"
+	ProjectSection(ProjectDependencies) = postProject
+		{CCA2C80B-BC8F-0DB0-39D4-2D31CD2F98DD} = {CCA2C80B-BC8F-0DB0-39D4-2D31CD2F98DD}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

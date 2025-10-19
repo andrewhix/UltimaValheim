@@ -52,11 +52,11 @@
           "dependencies": {
             "JotunnLib": {
               "target": "Package",
-              "version": "[2.26.1, )"
+              "version": "[2.27.0, )"
             },
-            "Newtonsoft.Json": {
+            "System.Text.Json": {
               "target": "Package",
-              "version": "[13.0.3, )"
+              "version": "[8.0.4, )"
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\RuntimeIdentifierGraph.json"
@@ -113,9 +113,9 @@
         "net48": {
           "targetAlias": "net48",
           "dependencies": {
-            "Newtonsoft.Json": {
+            "System.Text.Json": {
               "target": "Package",
-              "version": "[13.0.3, )"
+              "version": "[8.0.4, )"
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305\\RuntimeIdentifierGraph.json"

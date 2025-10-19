@@ -1,2 +1,0 @@
-C:\Valheim Modding\Code\UltimaValheim\UltimaValheimSkills\obj\Debug\UltimaValheimSkills.csproj.AssemblyReference.cache
-C:\Valheim Modding\Code\UltimaValheim\UltimaValheimSkills\obj\Debug\UltimaValheimSkills.csproj.CoreCompileInputs.cache

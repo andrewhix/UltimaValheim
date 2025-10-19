@@ -1,67 +1,94 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
+﻿using BepInEx.Logging;
 using HarmonyLib;
 using UltimaValheim.Core;
+using System;
+using System.Reflection;
 
 namespace UltimaValheim.Skills
 {
-    /// <summary>
-    /// Compatibility patch for when a new player joins the world.
-    /// Works across Valheim versions by reflecting connection methods dynamically.
-    /// </summary>
     [HarmonyPatch]
     public static class PlayerSkillHooks
     {
-        // Harmony will determine which function to patch at runtime.
-        static MethodBase TargetMethod()
-        {
-            var znetType = typeof(ZNet);
-            return
-                znetType.GetMethod("RPC_PeerInfo", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-                ?? znetType.GetMethod("RPC_CharacterID", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-                ?? znetType.GetMethod("RPC_ServerHandshake", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public)
-                ?? throw new MissingMethodException("No supported connection RPC found in ZNet.");
-        }
+        private static ManualLogSource Log => CoreAPI.Log;
 
+        [HarmonyPatch(typeof(Player), nameof(Player.OnSpawned))]
         [HarmonyPostfix]
-        public static void Postfix(object __instance, ZRpc rpc)
+        public static void OnPlayerSpawned(Player __instance)
         {
             try
             {
-                if (ZNet.instance == null)
-                {
-                    CoreAPI.Log.LogWarning("[UVC Skills] ZNet.instance is null during connection hook.");
-                    return;
-                }
+                if (!ZNet.instance) return;
 
-                var peer = ZNet.instance.GetPeer(rpc);
-                if (peer == null)
-                {
-                    CoreAPI.Log.LogWarning("[UVC Skills] Could not resolve ZNetPeer from ZRpc.");
-                    return;
-                }
-
-                CoreAPI.Log.LogInfo($"[UVC Skills] Player connected: {peer.m_playerName} ({peer.m_uid})");
-                PlayerSkillManager.OnPlayerJoin(peer);
+                long playerID = GetSafePlayerID(__instance);
+                Log.LogInfo($"[UVC Skills] Player spawned. Loading skills for ID {playerID}...");
+                PlayerSkillManager.LoadPlayer(playerID);
             }
             catch (Exception ex)
             {
-                CoreAPI.Log.LogError($"[UVC Skills] Error in player connection hook: {ex}");
+                Log.LogError($"[UVC Skills] Exception in OnPlayerSpawned: {ex}");
             }
         }
-    }
 
-    [HarmonyPatch(typeof(ZNet), nameof(ZNet.Disconnect))]
-    public static class ZNet_Disconnect_Patch
-    {
+        [HarmonyPatch(typeof(ZNet), nameof(ZNet.Disconnect))]
         [HarmonyPrefix]
-        public static void Prefix(ZNetPeer peer)
+        public static void OnPlayerDisconnect(ZNet __instance, ZNetPeer peer)
         {
-            if (peer == null) return;
+            try
+            {
+                if (peer?.m_uid == 0) return;
 
-            CoreAPI.Log.LogInfo($"[UVC Skills] Player disconnected: {peer.m_playerName}");
-            PlayerSkillManager.OnPlayerLeave(peer);
+                Log.LogInfo($"[UVC Skills] Player disconnect detected for {peer.m_uid}. Saving skill data...");
+                PlayerSkillManager.SavePlayer(peer.m_uid);
+            }
+            catch (Exception ex)
+            {
+                Log.LogError($"[UVC Skills] Exception in OnPlayerDisconnect: {ex}");
+            }
+        }
+
+        private static long GetSafePlayerID(Player player)
+        {
+            try
+            {
+                // Use ServerCharacters if available
+                Type scType = Type.GetType("ServerCharacters.ServerCharacters, ServerCharacters");
+                if (scType != null)
+                {
+                    var getUID = scType.GetMethod("GetPlayerUID", BindingFlags.Public | BindingFlags.Static);
+                    if (getUID != null)
+                    {
+                        object uid = getUID.Invoke(null, new object[] { player });
+                        if (uid is long scId)
+                        {
+                            return scId;
+                        }
+                    }
+                }
+
+                // Access Character.m_nview via reflection to get ZDO
+                var nviewField = typeof(Character).GetField("m_nview", BindingFlags.Instance | BindingFlags.NonPublic);
+                var nview = nviewField?.GetValue(player) as ZNetView;
+                var zdo = nview?.GetZDO();
+                if (zdo != null)
+                {
+                    return zdo.m_uid.UserID;
+                }
+
+                // Fallback via ZNetPeer
+                var peer = ZNet.instance?.GetPeer(player?.GetPlayerID());
+                if (peer != null)
+                {
+                    return peer.m_uid;
+                }
+
+                // Singleplayer fallback
+                return ZNet.GetUID();
+            }
+            catch (Exception ex)
+            {
+                Log.LogWarning($"[UVC Skills] GetSafePlayerID fallback: {ex}");
+                return 0L;
+            }
         }
     }
 }
