@@ -40,6 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
 
+	<ItemGroup>
+		<Reference Include="UnityEngine">
+			<HintPath>$(VALHEIM_PATH)\valheim_Data\Managed\UnityEngine.dll</HintPath>
+		</Reference>
+	</ItemGroup>
+
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
