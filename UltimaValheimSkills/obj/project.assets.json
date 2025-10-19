@@ -2,31 +2,6 @@
   "version": 3,
   "targets": {
     ".NETFramework,Version=v4.8": {
-      "JotunnLib/2.27.0": {
-        "type": "package",
-        "frameworkAssemblies": [
-          "Microsoft.CSharp",
-          "System",
-          "System.Core",
-          "System.Data",
-          "System.Data.DataSetExtensions",
-          "System.Xml",
-          "System.Xml.Linq"
-        ],
-        "compile": {
-          "lib/net462/Jotunn.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net462/Jotunn.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "build": {
-          "build/_._": {}
-        }
-      },
       "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
         "type": "package",
         "dependencies": {
@@ -200,7 +175,6 @@
         "type": "project",
         "framework": ".NETFramework,Version=v4.8",
         "dependencies": {
-          "JotunnLib": "2.27.0",
           "System.Text.Json": "8.0.4"
         },
         "compile": {
@@ -213,26 +187,6 @@
     }
   },
   "libraries": {
-    "JotunnLib/2.27.0": {
-      "sha512": "ef7Dxf+QjjlqUGYhg6K+D277D6Yhvx+AbWwnHzvJREdItsetFUZF9YraOBlkIsZmsDKsVx8/h93t7NGDIXXokw==",
-      "type": "package",
-      "path": "jotunnlib/2.27.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "build/JotunnBuildTask.dll",
-        "build/JotunnLib.props",
-        "build/JotunnLibRefsCorlib.props",
-        "build/Mono.Cecil.dll",
-        "build/Paths.props",
-        "images/JVL_Logo_128x128.png",
-        "jotunnlib.2.27.0.nupkg.sha512",
-        "jotunnlib.nuspec",
-        "lib/net462/Jotunn.dll",
-        "lib/net462/Jotunn.pdb",
-        "lib/net462/Jotunn.xml"
-      ]
-    },
     "Microsoft.Bcl.AsyncInterfaces/8.0.0": {
       "sha512": "3WA9q9yVqJp222P3x1wYIGDAkpjAku0TMUaaQV22g6L67AI0LdOIrVS7Ht2vJfLHGSPVuqN94vIr15qn+HEkHw==",
       "type": "package",
@@ -574,12 +528,13 @@
     },
     "UltimaValheimCore/1.0.0": {
       "type": "project",
-      "path": "../UltimaValheimCore/UltimaValheimCore/UltimaValheimCore.csproj",
-      "msbuildProject": "../UltimaValheimCore/UltimaValheimCore/UltimaValheimCore.csproj"
+      "path": "../UltimaValheimCore/UltimaValheimCore.csproj",
+      "msbuildProject": "../UltimaValheimCore/UltimaValheimCore.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETFramework,Version=v4.8": [
+      "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimCore\\UltimaValheimCore\\UltimaValheimCore.csproj",
       "System.Text.Json >= 8.0.4",
       "UltimaValheimCore >= 1.0.0"
     ]
@@ -616,6 +571,9 @@
         "net48": {
           "targetAlias": "net48",
           "projectReferences": {
+            "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimCore\\UltimaValheimCore.csproj": {
+              "projectPath": "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimCore\\UltimaValheimCore.csproj"
+            },
             "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimCore\\UltimaValheimCore\\UltimaValheimCore.csproj": {
               "projectPath": "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimCore\\UltimaValheimCore\\UltimaValheimCore.csproj"
             }
@@ -648,6 +606,15 @@
     }
   },
   "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Unable to find project 'C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimCore\\UltimaValheimCore\\UltimaValheimCore.csproj'. Check that the project reference is valid and that the project file exists.",
+      "libraryId": "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimCore\\UltimaValheimCore\\UltimaValheimCore.csproj",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8"
+      ]
+    },
     {
       "code": "NU1903",
       "level": "Warning",

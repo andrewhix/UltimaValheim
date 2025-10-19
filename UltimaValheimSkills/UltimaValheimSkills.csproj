@@ -6,6 +6,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\UltimaValheimCore\UltimaValheimCore.csproj" />
 		<ProjectReference Include="..\UltimaValheimCore\UltimaValheimCore\UltimaValheimCore.csproj" />
 	</ItemGroup>
 

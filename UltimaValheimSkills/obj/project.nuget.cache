@@ -1,10 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "3WLK2xZ3Ia4=",
-  "success": true,
+  "dgSpecHash": "wvpkPLMF3NM=",
+  "success": false,
   "projectFilePath": "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimSkills\\UltimaValheimSkills.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Gaming\\.nuget\\packages\\jotunnlib\\2.27.0\\jotunnlib.2.27.0.nupkg.sha512",
     "C:\\Users\\Gaming\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\8.0.0\\microsoft.bcl.asyncinterfaces.8.0.0.nupkg.sha512",
     "C:\\Users\\Gaming\\.nuget\\packages\\system.buffers\\4.5.1\\system.buffers.4.5.1.nupkg.sha512",
     "C:\\Users\\Gaming\\.nuget\\packages\\system.memory\\4.5.5\\system.memory.4.5.5.nupkg.sha512",
@@ -16,6 +15,17 @@
     "C:\\Users\\Gaming\\.nuget\\packages\\system.valuetuple\\4.5.0\\system.valuetuple.4.5.0.nupkg.sha512"
   ],
   "logs": [
+    {
+      "code": "NU1104",
+      "level": "Error",
+      "message": "Unable to find project 'C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimCore\\UltimaValheimCore\\UltimaValheimCore.csproj'. Check that the project reference is valid and that the project file exists.",
+      "projectPath": "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimSkills\\UltimaValheimSkills.csproj",
+      "filePath": "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimSkills\\UltimaValheimSkills.csproj",
+      "libraryId": "C:\\Valheim Modding\\Code\\UltimaValheim\\UltimaValheimCore\\UltimaValheimCore\\UltimaValheimCore.csproj",
+      "targetGraphs": [
+        ".NETFramework,Version=v4.8"
+      ]
+    },
     {
       "code": "NU1903",
       "level": "Warning",
